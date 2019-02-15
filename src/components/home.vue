@@ -1,5 +1,5 @@
 <template>
-    <div>
+   
         <el-container class="container">
             <el-header>Header</el-header>
             <el-container>
@@ -7,7 +7,6 @@
          <el-main class="main">Main</el-main>
         </el-container>
 </el-container>
-    </div>
 </template>
 
 <script>
