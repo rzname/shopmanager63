@@ -29,7 +29,15 @@
                         <i class="el-icon-location"></i>
                         <span>用户管理</span>
                         </template>
-                        <el-menu-item index="1-1"><i class="el-icon-menu"></i>用户列表</el-menu-item>
+                        <!--
+                            1,<router-link></router-link>改标识
+                            2，提供容器
+                            3，提供组件 users.vue
+                            4,newVuerouter()
+                            5,配置路由
+                            6，挂载
+                         -->
+                        <el-menu-item index="users"><i class="el-icon-menu"></i>用户列表</el-menu-item>
                     </el-submenu>
                     <!-- 权限管理 -->
                     <el-submenu index="2">
@@ -68,7 +76,10 @@
                     </el-submenu>
                 </el-menu>
             </el-aside>
-            <el-main class="main">Main</el-main>
+            <el-main class="main">
+                <!-- 提供容器 -->
+                <router-view></router-view>
+            </el-main>
         </el-container>
     </el-container>
 </template>
@@ -87,15 +98,15 @@ export default {
     }
   },
   methods: {
-      handleLoginout(){
-            // 1，清楚token、
-        localStorage.clear();
-        this.$router.push({
-            name:'login'
-        });
-        this.$message.warning('退出成功')
+    handleLoginout () {
+      // 1，清楚token、
+      localStorage.clear()
+      this.$router.push({
+        name: 'login'
+      })
+      this.$message.warning('退出成功')
     }
-  },
+  }
 }
 </script>
 
