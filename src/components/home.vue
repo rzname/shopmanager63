@@ -87,15 +87,15 @@ export default {
     }
   },
   methods: {
-      handleLoginout(){
-            // 1，清楚token、
-        localStorage.clear();
-        this.$router.push({
-            name:'login'
-        });
-        this.$message.warn('退出登录')
+    handleLoginout () {
+      // 1，清楚token、
+      localStorage.clear()
+      this.$router.push({
+        name: 'login'
+      })
+      this.$message.warn('退出登录')
     }
-  },
+  }
 }
 </script>
 
