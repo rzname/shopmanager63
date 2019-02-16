@@ -133,20 +133,20 @@ export default {
       // 表格数据
       list: [],
       dialogFormVisibleAdd: false,
-      dialogFormVisibleEdit:false,
-      dialogFormVisibleRole:false,
+      dialogFormVisibleEdit: false,
+      dialogFormVisibleRole: false,
       formdata: {
         username: '',
         password: '',
         email: '',
         mobile: ''
       },
-      //下拉框使用数据
-      selectVal:-1,
+      // 下拉框使用数据
+      selectVal: -1,
       // 保存角色的数组
-      roles:[],
-      currUsername:'',
-      currUserid:-1
+      roles: [],
+      currUsername: '',
+      currUserid: -1
     }
   },
   created () {
@@ -154,34 +154,34 @@ export default {
   },
   methods: {
     // 分配角色 - 发请求
-  async setRole(){
-      const res = await this.$http.put(`users/${this.currUserid}/role`,{
-        rid:this.selectVal
+    async setRole () {
+      const res = await this.$http.put(`users/${this.currUserid}/role`, {
+        rid: this.selectVal
       })
-      console.log(res);
-      const {meta:{msg,status}}=res.data
-      if(status===200){
+      console.log(res)
+      const {meta: {msg, status}} = res.data
+      if (status === 200) {
         this.dialogFormVisibleRole = false
         this.$message.success(msg)
       }
     },
-    //分配角色 - 显示对话框
-  async showDiaSetRole(user){
-    this.currUserid = user.id
-    console.log(this.currUserid)
+    // 分配角色 - 显示对话框
+    async showDiaSetRole (user) {
+      this.currUserid = user.id
+      console.log(this.currUserid)
       this.currUsername = user.username
       this.dialogFormVisibleRole = true
       // 获取所有角色名称
       const res = await this.$http.get(`roles`)
       // console.log(res);
-      const {meta:{msg,status},data} = res.data
-      if(status===200){
+      const {meta: {status}, data} = res.data
+      if (status === 200) {
         this.roles = data
         console.log(this.roles)
       }
       // 获取当前用户角色id
-       const res2 = await this.$http.get(`users/${user.id}`)
-       console.log(res2)
+      const res2 = await this.$http.get(`users/${user.id}`)
+      console.log(res2)
       //  const {meta:{msg2,status2},data2} = res2.data2
       //  if(status2===200){
       //    this.selectVal = data2.rid
@@ -189,58 +189,58 @@ export default {
       this.selectVal = res2.data.data.rid
     },
     // 修改用户状态
-    async changeState(user){
-     // users/:uId/state/:type
-     const res = await this.$http.put(`users/${user.id}/state/${user.mg_state}`)
+    async changeState (user) {
+      // users/:uId/state/:type
+      const res = await this.$http.put(`users/${user.id}/state/${user.mg_state}`)
       // console.log(res);
-      const {meta:{status,msg}} = res.data
-      if(status===200){
+      const {meta: {status, msg}} = res.data
+      if (status === 200) {
         this.$message.success(msg)
       }
     },
     // 用户列表-编辑按钮
-  async editUser(){
-      const res = await this.$http.put(`users/${this.formdata.id}`,this.formdata)
+    async editUser () {
+      const res = await this.$http.put(`users/${this.formdata.id}`, this.formdata)
       console.log(res)
-      const {meta:{msg,status}} = res.data
-      if(status===200){
-        //关闭对话框
+      const {meta: {status}} = res.data
+      if (status === 200) {
+        // 关闭对话框
         this.dialogFormVisibleEdit = false
-        //跟新表格
+        // 跟新表格
         this.getTableData()
       }
     },
     // 编辑中的显示对话框
-    showDiaEditUser(user){
-      this.formdata=user
+    showDiaEditUser (user) {
+      this.formdata = user
       this.dialogFormVisibleEdit = true
     },
     // 用户列表- 删除按钮
-    showMsgBox(user){
+    showMsgBox (user) {
       // console.log(user);
-      
-       this.$confirm('是否删除用户?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async () => {
-          // 发送请求
-          const res = await this.$http.delete(`users/${user.id}`)
-          console.log(res)
-          const {meta:{msg,status}} = res.data
-          if(status===200){
-            // 提示框
-              this.$message.success(msg)
-            // 跟新表格
-            this.pagenum = 1
-              this.getTableData()
-          }
-        }).catch(() => {
-          this.$message.success('已取消删除')    
-        })
+
+      this.$confirm('是否删除用户?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        // 发送请求
+        const res = await this.$http.delete(`users/${user.id}`)
+        console.log(res)
+        const {meta: {msg, status}} = res.data
+        if (status === 200) {
+          // 提示框
+          this.$message.success(msg)
+          // 跟新表格
+          this.pagenum = 1
+          this.getTableData()
+        }
+      }).catch(() => {
+        this.$message.success('已取消删除')
+      })
     },
     // 添加用户 - 发送请求
-    async addUser(){
+    async addUser () {
       // 获取表单数据
       const res = await this.$http.post(`users`, this.formdata)
       console.log(res)
