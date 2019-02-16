@@ -293,6 +293,7 @@ export default {
       // console.log(res)
       const {data, meta: {status}} = res.data
       if (status === 200) {
+        // 这是总条数
         this.total = data.total
         this.list = data.users
       }
