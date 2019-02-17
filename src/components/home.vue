@@ -80,16 +80,16 @@ export default {
 // if（没有token）{改login ， 显示login}
   beforeMount () {
     console.log('beforeMount-----')
-    if (localStorage.getItem('token')) {
+    if (!localStorage.getItem('token')) {
       this.$router.push({
-        name: 'home'
+        name: 'login'
       })
     }
   },
   methods: {
     handleLoginout () {
       // 1，清楚token、
-      localStorage.clear()
+      localStorage.clear('token')
       this.$router.push({
         name: 'login'
       })
@@ -103,9 +103,6 @@ export default {
 .container{
     height: 100%;
     background: #b3c0d1;
-}
-.aside{
-     /* background: red; */
 }
 .main{
     background: gray;
