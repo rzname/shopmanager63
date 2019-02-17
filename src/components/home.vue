@@ -104,9 +104,6 @@ export default {
     height: 100%;
     background: #b3c0d1;
 }
-.aside{
-     /* background: red; */
-}
 .main{
     background: gray;
 }
