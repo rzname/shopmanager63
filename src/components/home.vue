@@ -80,20 +80,20 @@ export default {
 // if（没有token）{改login ， 显示login}
   beforeMount () {
     console.log('beforeMount-----')
-    if (localStorage.getItem('token')) {
+    if (!localStorage.getItem('token')) {
       this.$router.push({
-        name: 'home'
+        name: 'login'
       })
     }
   },
   methods: {
     handleLoginout () {
       // 1，清楚token、
-      localStorage.clear()
+      localStorage.clear('token')
       this.$router.push({
         name: 'login'
       })
-      this.$message.warn('退出登录')
+      this.$message.warning('退出登录')
     }
   }
 }
