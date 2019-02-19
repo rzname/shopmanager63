@@ -212,8 +212,10 @@ export default {
       }
     },
     // 编辑中的显示对话框
-    showDiaEditUser (user) {
-      this.formdata = user
+    async showDiaEditUser (user) {
+      // this.formdata = user
+      const res = await this.$http.get(`users/${user.id}`)
+      this.formdata = res.data.data
       this.dialogFormVisibleEdit = true
     },
     // 用户列表- 删除按钮
@@ -287,8 +289,6 @@ export default {
       // query查询参数
       // pagenum 当前页码 不能为空
       // pagesize每页显示的条数 不能为空
-      const AUTH_TOKEN = localStorage.getItem('token')
-      this.$http.defaults.headers.common['Authorization'] = AUTH_TOKEN
       // console.log(AUTH_TOKEN)
       const res = await this.$http.get(`users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
       // console.log(res)
