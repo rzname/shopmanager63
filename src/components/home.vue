@@ -100,7 +100,7 @@ export default {
       // 角色超级管理->超管的token -> 请求菜单
       // admin登录 -> 主管-> 所有权限 -> 主管的token
       const res = await this.$http.get(`menus`)
-    //   console.log(res)
+      //   console.log(res)
       const {meta: {status}, data} = res.data
       if (status === 200) {
         this.menus = data

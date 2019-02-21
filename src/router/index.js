@@ -5,7 +5,11 @@ import Home from '@/components/home.vue'
 import Users from '@/components/users.vue'
 import Rights from '@/components/rights.vue'
 import Roles from '@/components/roles.vue'
-import {Message} from 'element-ui'
+import Goodslist from '@/components/goodslist.vue'
+import Goodsadd from '@/components/goodsadd.vue'
+import Gateparams from '@/components/cateparams.vue'
+import Goodscate from '@/components/goodscate.vue'
+import { Message } from 'element-ui'
 
 Vue.use(Router)
 
@@ -31,7 +35,26 @@ const router = new Router({
         name: 'roles',
         path: '/roles',
         component: Roles
-      }]
+      }, {
+        name: 'goods',
+        path: '/goods',
+        component: Goodslist
+      }, {
+        name: 'goodsadd',
+        path: '/goodsadd',
+        component: Goodsadd
+      }, {
+        // 分类参数路由
+        name: 'params',
+        path: '/params',
+        component: Gateparams
+      },
+      {
+        name: 'categories',
+        path: '/categories',
+        component: Goodscate
+      }
+      ]
     }
   ]
 })
@@ -40,7 +63,7 @@ const router = new Router({
 // to 要去的路由信息
 // from 当前路由配置对象
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  // console.log(to)
   // 让路由配置继续生效
   // 要去的是登录
   if (to.name === 'login') {
