@@ -165,7 +165,7 @@ export default {
           name: "goods"
         })
       } else {
-        this.$message.error(msg);
+        // this.$message.error(msg);
       }
     },
     // 图片上传

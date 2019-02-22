@@ -2,11 +2,12 @@
 // 把axios 相关代码封装成Vue插件
 // 结果 在main.js可以 Vue.use（axios）
 import axios from 'axios'
+import { Message } from 'element-ui'
 // Vue插件
 const HttpServer = {}
 HttpServer.install = function (Vue) {
   axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
-  // 拦截器
+  // 请求拦截器拦截器
   axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
 
@@ -23,6 +24,21 @@ HttpServer.install = function (Vue) {
     // 对请求错误做些什么
     return Promise.reject(error)
   })
+  // 响应拦截器
+  axios.interceptors.response.use(function (response) {
+    // 对响应数据做点什么
+    console.log('res拦截器被触发')
+    console.log('response')
+    const { meta: { status, msg } } = response.data
+    if (status !== 200 && status !== 201) {
+      Message.warning(msg)
+    }
+    return response
+  }, function (error) {
+    // 对响应错误做点什么
+    return Promise.reject(error)
+  }
+  )
 
   Vue.prototype.$http = axios
 }

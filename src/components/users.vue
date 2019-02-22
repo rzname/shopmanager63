@@ -24,7 +24,7 @@
         <!-- el-table-column 控制列 -->
         <!-- label 控制的是表头 -->
         <!-- prop 控制的是该列中每一行单元格内容 -->
-         <el-table :data="list" style="width: 100%">
+         <el-table :data="list" style="width: 100%" v-loading="loading">
             <el-table-column prop="id" label="#" width="80">
             </el-table-column>
             <el-table-column prop="username" label="姓名" width="100">
@@ -147,7 +147,8 @@ export default {
       // 保存角色的数组
       roles: [],
       currUsername: '',
-      currUserid: -1
+      currUserid: -1,
+      loading:true
     }
   },
   created () {
@@ -292,11 +293,15 @@ export default {
       // console.log(AUTH_TOKEN)
       const res = await this.$http.get(`users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
       // console.log(res)
-      const {data, meta: {status}} = res.data
+      const {data, meta: {status,msg}} = res.data
       if (status === 200) {
         // 这是总条数
         this.total = data.total
         this.list = data.users
+        this.loading = false
+      }else{
+        // token->
+        // this.$message.warning(msg)
       }
     }
   }
